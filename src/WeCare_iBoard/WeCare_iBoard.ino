@@ -7,7 +7,7 @@
  * Software Modules used:
  * DebugPrint : For debug related functionalities
  * CubeModule : Provide a single point data point for all the info related to modular peice designed
- * 
+ * Sensor : 
  * 
  * Libraries used:
  * Servo
@@ -36,7 +36,6 @@ TODO:
 #include "DebugPrint.hpp"
 
 #include "CubeModule.hpp"
-#include "Sensor.hpp"
 
 CubeModule_t interactiveBoard[16];
 int pixelCount = sizeof(interactiveBoard)/sizeof(CubeModule_t);
@@ -55,7 +54,6 @@ void setup() {
  * 
  */
 void loop() {
-  updateSensorStatus();
 }
 
 

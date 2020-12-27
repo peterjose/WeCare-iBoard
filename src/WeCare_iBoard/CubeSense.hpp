@@ -1,5 +1,5 @@
 /**
- * @file Sensor.hpp
+ * @file CubeSense.hpp
  * @author Team Hugo
  * @brief Provide functionalities for updating with the sensor inputs
  * @version 0.1
@@ -9,10 +9,10 @@
  * 
  */
 
-#ifndef _SENSOR_H_
-#define _SENSOR_H_
+#ifndef _CUBE_SENSE_H_
+#define _CUBE_SENSE_H_
 
-void updateSensorStatus(void);
+void UpdateSensorStatus(CubeModule_t interactiveBoard[], int pixelCount);
 
 
-#endif /* _SENSOR_H_ */
+#endif /* _CUBE_SENSE_H_ */

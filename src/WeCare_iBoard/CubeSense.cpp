@@ -12,14 +12,13 @@
 #include "CubeModule.hpp"
 #include "arduino.h"
 
-extern CubeModule_t interactiveBoard[16];
-extern int pixelCount;
-
 /**
- * @brief 
+ * @brief Function to update the sensor input details to the data points
  * 
+ * @param interactiveBoard 
+ * @param pixelCount 
  */
-void updateSensorStatus(void)
+void UpdateSensorStatus(CubeModule_t interactiveBoard[], int pixelCount)
 {
     for(int i; i< pixelCount;i++)
     {
