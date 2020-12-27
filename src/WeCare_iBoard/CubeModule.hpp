@@ -1,5 +1,5 @@
 /**
- * @file CubeModule.h
+ * @file CubeModule.hpp
  * @author Team Hugo
  * @brief 
  * @version 0.1
@@ -21,6 +21,8 @@
  */
 typedef struct cube
 {
+    // pin details of the sensor
+    int sensorPin;
     // updated based on the sensor (reed switch)
     bool sensorStatus;
     // actuator calibration low state angle info

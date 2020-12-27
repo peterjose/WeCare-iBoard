@@ -1,5 +1,5 @@
 /**
- * @file DebugPrint.h
+ * @file DebugPrint.hpp
  * @author Team Hugo
  * @brief File contains the necessary functions and defintions 
  * debug printing

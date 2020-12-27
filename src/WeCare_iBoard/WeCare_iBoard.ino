@@ -33,11 +33,13 @@ TODO:
 
 // comment the following line to disable the Debug printing over the UART
 #define DEBUG_ENABLE
-#include "DebugPrint.h"
+#include "DebugPrint.hpp"
 
-#include "CubeModule.h"
+#include "CubeModule.hpp"
+#include "Sensor.hpp"
 
 CubeModule_t interactiveBoard[16];
+int pixelCount = sizeof(interactiveBoard)/sizeof(CubeModule_t);
 
 /**
  * @brief setup function to intialise all the components
@@ -53,7 +55,7 @@ void setup() {
  * 
  */
 void loop() {
-
+  updateSensorStatus();
 }
 
 
