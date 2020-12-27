@@ -12,6 +12,7 @@
 #define CUBE_MODULE_H_
 
 // Macro definitions for Sensor state info
+#define SENSOR_TRIGGERED                HIGH
 #define SENSOR_ACTIVE                   true
 #define SENSOR_INACTIVE                 false
 
@@ -25,6 +26,9 @@ typedef struct cube
     int sensorPin;
     // updated based on the sensor (reed switch)
     bool sensorStatus;
+    // flagged when a change in the state of the sensor is detected, 
+    // so that it can be reported to server
+    bool sensorStateUpdateFlag;
     // actuator calibration low state angle info
     int actuatorLowSetting;
     // actuator calibration high state angle info
@@ -34,5 +38,9 @@ typedef struct cube
     // led light colour on the cube
     int ledState;
 } CubeModule_t;
+
+
+// Function prototypes
+void CubeTaskRunner(CubeModule_t interactiveBoard[], int pixelCount);
 
 #endif /* CUBE_MODULE_H_ */

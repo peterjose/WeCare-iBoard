@@ -36,6 +36,7 @@ TODO:
 #include "DebugPrint.hpp"
 
 #include "CubeModule.hpp"
+#include "NetworkCommunicationModule.hpp"
 
 CubeModule_t interactiveBoard[16];
 int pixelCount = sizeof(interactiveBoard)/sizeof(CubeModule_t);
@@ -46,7 +47,7 @@ int pixelCount = sizeof(interactiveBoard)/sizeof(CubeModule_t);
  */
 void setup() {
   DBG_BEGIN(115200);
-
+  EstablishedInterBoardConnection();
 }
 
 /**
@@ -54,6 +55,9 @@ void setup() {
  * 
  */
 void loop() {
+
+  CubeTaskRunner(interactiveBoard,pixelCount);
+
 }
 
 
