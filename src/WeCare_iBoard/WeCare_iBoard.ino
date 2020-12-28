@@ -10,8 +10,8 @@
  * Sensor : 
  * 
  * Libraries used:
- * Servo
- * 
+ * Servo by Michael Margolis, Arduino version 1.1.7
+ * Adafruit NeoPixel version 1.7.0
  * 
  * 
  * @version 0.1
