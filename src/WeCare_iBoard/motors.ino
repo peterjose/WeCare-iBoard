@@ -1,6 +1,6 @@
 /*
   recieved data to motors
-*/
+*/ 
 
 #include <Servo.h>
 // create servo object to control servos
