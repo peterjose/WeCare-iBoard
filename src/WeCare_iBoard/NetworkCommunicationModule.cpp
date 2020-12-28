@@ -24,7 +24,7 @@ void EstablishedInterBoardConnection()
  * @brief 
  * 
  */
-void connectionTaskRunner()
+void ConnectionTaskRunner()
 {
 
 }

@@ -31,6 +31,8 @@ TODO:
   NEOPIXEL module
 */
 
+#include <avr/wdt.h>
+
 // comment the following line to disable the Debug printing over the UART
 #define DEBUG_ENABLE
 #include "DebugPrint.hpp"
@@ -38,7 +40,10 @@ TODO:
 #include "CubeModule.hpp"
 #include "NetworkCommunicationModule.hpp"
 
+// Interactive Board 
 CubeModule_t interactiveBoard[16];
+
+// pixel count of the interactive board
 int pixelCount = sizeof(interactiveBoard)/sizeof(CubeModule_t);
 
 /**
@@ -46,8 +51,13 @@ int pixelCount = sizeof(interactiveBoard)/sizeof(CubeModule_t);
  * 
  */
 void setup() {
+  // Disabled watchdog timer for testing 
+  wdt_disable();
+  // enable watchdog timer
+  //wdt_enable(WDTO_8S);
   DBG_BEGIN(115200);
   EstablishedInterBoardConnection();
+  CubeModuleInitialise(interactiveBoard,pixelCount);
 }
 
 /**
@@ -55,9 +65,8 @@ void setup() {
  * 
  */
 void loop() {
-
   CubeTaskRunner(interactiveBoard,pixelCount);
-
+  ConnectionTaskRunner();
 }
 
 

@@ -12,6 +12,14 @@
 #include "CubeModule.hpp"
 #include "arduino.h"
 
+void InitialisedSensorModule(CubeModule_t interactiveBoard[], int pixelCount)
+{
+    for(int i = 0; i< pixelCount;i++)
+    {
+        pinMode(interactiveBoard[i].sensorPin,INPUT);
+    }
+}
+
 /**
  * @brief Function to update the sensor input details to the data points
  * 

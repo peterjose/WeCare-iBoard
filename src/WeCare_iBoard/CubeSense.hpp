@@ -12,7 +12,7 @@
 #ifndef _CUBE_SENSE_H_
 #define _CUBE_SENSE_H_
 
+void InitialisedSensorModule(CubeModule_t interactiveBoard[], int pixelCount);
 void UpdateSensorStatus(CubeModule_t interactiveBoard[], int pixelCount);
-
 
 #endif /* _CUBE_SENSE_H_ */

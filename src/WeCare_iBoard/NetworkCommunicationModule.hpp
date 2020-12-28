@@ -13,6 +13,6 @@
 #define _NETWORK_COMMUNICATION_MODULE_H_
 
 void EstablishedInterBoardConnection();
-void connectionTaskRunner();
+void ConnectionTaskRunner();
 
 #endif /* _NETWORK_COMMUNICATION_MODULE_H_ */
