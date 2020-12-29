@@ -12,6 +12,6 @@
 #ifndef _BSP_H_
 #define _BSP_H_
 
-#define LED_SINGLE_WIRE_PIN                 10
+#define LED_SINGLE_WIRE_PIN             10
 
 #endif /* _BSP_H_ */

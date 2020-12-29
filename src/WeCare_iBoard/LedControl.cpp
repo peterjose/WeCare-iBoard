@@ -11,7 +11,7 @@
 
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
- #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
+#include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 #endif
 
 #include "bsp.hpp"
@@ -19,7 +19,7 @@
 #include "LedControl.hpp"
 
 // Number of LED pixels
-#define DEFAULT_PIXEL_COUNT 16 
+#define DEFAULT_PIXEL_COUNT             16
 
 // When setting up the NeoPixel library, we tell it how many pixels,
 // and which pin to use to send signals. Note that for older NeoPixel
@@ -47,15 +47,14 @@ void LED_Intialise(int pixelCount)
  */
 void LED_updateTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
 {
-    for(int i = 0 ; i < pixelCount ; i++)
-    { 
+    for (int i = 0; i < pixelCount; i++)
+    {
         // Color() takes RGB values, from 0,0,0 up to 255,255,255
         // TODO: choosing the colour of the LED pixel based on input or actuator status
         LED_pixels.setPixelColor(i, LED_pixels.Color(0, 0, 0));
     }
 
-    LED_pixels.show();   // Send the updated pixel colors to the hardware.
-
+    LED_pixels.show(); // Send the updated pixel colors to the hardware.
 }
 
 /* EOF */

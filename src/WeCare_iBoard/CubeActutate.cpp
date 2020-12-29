@@ -19,9 +19,9 @@
  * @param interactiveBoard 
  * @param pixelCount 
  */
-void InitialisedActuatorModule(CubeModule_t interactiveBoard[],int pixelCount)
+void InitialisedActuatorModule(CubeModule_t interactiveBoard[], int pixelCount)
 {
-    for(int i =0 ; i < pixelCount;i++)
+    for (int i = 0; i < pixelCount; i++)
     {
         interactiveBoard[i].actuator.attach(interactiveBoard[i].actuatorPin);
         interactiveBoard[i].currentAngle = interactiveBoard[i].actuatorLowSetting;
@@ -37,24 +37,23 @@ void InitialisedActuatorModule(CubeModule_t interactiveBoard[],int pixelCount)
  * @param interactiveBoard 
  * @param pixelCount 
  */
-void ActuatorTaskRunner(CubeModule_t interactiveBoard[],int pixelCount)
+void ActuatorTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
 {
     ActuatorMode_t mode;
-    for(int i =0 ; i < pixelCount;i++)
+    for (int i = 0; i < pixelCount; i++)
     {
         mode = interactiveBoard[i].actuatorMode;
         switch (mode)
         {
         case NORMAL_MODE:
-            interactiveBoard[i].currentAngle = (interactiveBoard[i].actuationActivated ? 
-                interactiveBoard[i].actuatorHighSetting : interactiveBoard[i].actuatorLowSetting); 
+            interactiveBoard[i].currentAngle = (interactiveBoard[i].actuationActivated ? interactiveBoard[i].actuatorHighSetting : interactiveBoard[i].actuatorLowSetting);
             interactiveBoard[i].actuatorMode = NO_UPDATE_MODE;
             break;
         case RAMP_MODE_UP:
-            if(interactiveBoard[i].actuationActivated)
+            if (interactiveBoard[i].actuationActivated)
             {
                 interactiveBoard[i].currentAngle += interactiveBoard[i].actuatorStepLevel;
-                if(interactiveBoard[i].currentAngle >= interactiveBoard[i].actuatorHighSetting)
+                if (interactiveBoard[i].currentAngle >= interactiveBoard[i].actuatorHighSetting)
                 {
                     interactiveBoard[i].currentAngle = interactiveBoard[i].actuatorHighSetting;
                     interactiveBoard[i].actuatorMode = RAMP_MODE_DOWN;
@@ -62,10 +61,10 @@ void ActuatorTaskRunner(CubeModule_t interactiveBoard[],int pixelCount)
             }
             break;
         case RAMP_MODE_DOWN:
-            if(interactiveBoard[i].actuationActivated)
+            if (interactiveBoard[i].actuationActivated)
             {
                 interactiveBoard[i].currentAngle -= interactiveBoard[i].actuatorStepLevel;
-                if(interactiveBoard[i].currentAngle <= interactiveBoard[i].actuatorLowSetting)
+                if (interactiveBoard[i].currentAngle <= interactiveBoard[i].actuatorLowSetting)
                 {
                     interactiveBoard[i].currentAngle = interactiveBoard[i].actuatorLowSetting;
                     interactiveBoard[i].actuatorMode = RAMP_MODE_UP;
@@ -73,20 +72,20 @@ void ActuatorTaskRunner(CubeModule_t interactiveBoard[],int pixelCount)
             }
             break;
         case DEAD_LOW_MODE:
-            if(interactiveBoard[i].actuationActivated)
+            if (interactiveBoard[i].actuationActivated)
             {
                 interactiveBoard[i].currentAngle -= interactiveBoard[i].actuatorStepLevel;
-                if(interactiveBoard[i].currentAngle <= interactiveBoard[i].actuatorLowSetting)
+                if (interactiveBoard[i].currentAngle <= interactiveBoard[i].actuatorLowSetting)
                 {
                     interactiveBoard[i].currentAngle = interactiveBoard[i].actuatorLowSetting;
                 }
             }
             break;
         case ACTIVE_HIGH_MODE:
-            if(interactiveBoard[i].actuationActivated)
+            if (interactiveBoard[i].actuationActivated)
             {
                 interactiveBoard[i].currentAngle += interactiveBoard[i].actuatorStepLevel;
-                if(interactiveBoard[i].currentAngle >= interactiveBoard[i].actuatorHighSetting)
+                if (interactiveBoard[i].currentAngle >= interactiveBoard[i].actuatorHighSetting)
                 {
                     interactiveBoard[i].currentAngle = interactiveBoard[i].actuatorHighSetting;
                 }
@@ -98,11 +97,10 @@ void ActuatorTaskRunner(CubeModule_t interactiveBoard[],int pixelCount)
             break;
         }
 
-        if(interactiveBoard[i].actuator.read() != interactiveBoard[i].currentAngle)
+        if (interactiveBoard[i].actuator.read() != interactiveBoard[i].currentAngle)
         {
             interactiveBoard[i].actuator.write(interactiveBoard[i].currentAngle);
         }
-
     }
 }
 

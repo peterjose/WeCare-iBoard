@@ -17,39 +17,40 @@
  * @brief 
  * 
  */
-typedef enum{
+typedef enum
+{
     NORMAL_MODE = 0,
     RAMP_MODE_UP,
     RAMP_MODE_DOWN,
     DEAD_LOW_MODE,
     ACTIVE_HIGH_MODE,
     NO_UPDATE_MODE,
-}ActuatorMode_t;
+} ActuatorMode_t;
 
 // Macro definitions for Sensor state info
-#define SENSOR_TRIGGERED                HIGH
-#define SENSOR_ACTIVE                   true
-#define SENSOR_INACTIVE                 false
+#define SENSOR_TRIGGERED        HIGH
+#define SENSOR_ACTIVE           true
+#define SENSOR_INACTIVE         false
 
 /**
  * @brief Data wrapper for the Modular cube  
  * 
- */ 
+ */
 typedef struct cube
 {
     // Pin details of the sensor
     int sensorPin;
     // Pin details of the actuator
     int actuatorPin;
-    
+
     // Updated based on the sensor (reed switch)
     bool sensorStatus;
     // Flagged when a change in the state of the sensor is detected,
     // so that it can be reported to server
     bool sensorStateUpdateFlag;
-    
+
     // actuator corresponding to that cube
-     Servo actuator;
+    Servo actuator;
     // Actuator calibration low state angle info
     int actuatorLowSetting;
     // Actuator calibration high state angle info

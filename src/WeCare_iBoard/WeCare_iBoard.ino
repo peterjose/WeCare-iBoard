@@ -40,23 +40,24 @@ TODO:
 #include "CubeModule.hpp"
 #include "NetworkCommunicationModule.hpp"
 
-// Interactive Board 
+// Interactive Board
 CubeModule_t interactiveBoard[16];
 
 // pixel count of the interactive board
-int pixelCount = sizeof(interactiveBoard)/sizeof(CubeModule_t);
+int pixelCount = sizeof(interactiveBoard) / sizeof(CubeModule_t);
 
 /**
  * @brief setup function to intialise all the components
  * 
  */
-void setup() {
-  // Disabled watchdog timer for testing 
+void setup()
+{
+  // Disabled watchdog timer for testing
   wdt_disable();
   // enable watchdog timer
   //wdt_enable(WDTO_8S);
   DBG_BEGIN(115200);
-  CubeModuleInitialise(interactiveBoard,pixelCount);
+  CubeModuleInitialise(interactiveBoard, pixelCount);
   EstablishedInterBoardConnection();
 }
 
@@ -64,10 +65,10 @@ void setup() {
  * @brief loop function
  * 
  */
-void loop() {
-  CubeTaskRunner(interactiveBoard,pixelCount);
+void loop()
+{
+  CubeTaskRunner(interactiveBoard, pixelCount);
   ConnectionTaskRunner();
 }
-
 
 /* EOF */

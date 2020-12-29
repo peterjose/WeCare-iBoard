@@ -17,7 +17,6 @@
  */
 void EstablishedInterBoardConnection()
 {
-
 }
 
 /**
@@ -26,9 +25,6 @@ void EstablishedInterBoardConnection()
  */
 void ConnectionTaskRunner()
 {
-
 }
-
-
 
 /* EOF */

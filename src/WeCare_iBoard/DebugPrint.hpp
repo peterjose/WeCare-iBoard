@@ -14,8 +14,8 @@
 #define _DEBUG_PRINT_H_
 
 #ifdef DEBUG_ENABLE
-    #define DBG_BEGIN(x)                Serial.begin(x);
-    #define DBG_PRINT(x)                Serial.print(x);
+    #define DBG_BEGIN(x)        Serial.begin(x);
+    #define DBG_PRINT(x)        Serial.print(x);
 #else
     #define DBG_BEGIN(x)
     #define DBG_PRINT(x)
