@@ -34,7 +34,7 @@ void UpdateSensorStatus(CubeModule_t interactiveBoard[], int pixelCount)
         // read the sensor and assign the state to the active or inactive
         state = (digitalRead(interactiveBoard[i].sensorPin) == SENSOR_TRIGGERED) ? SENSOR_ACTIVE : SENSOR_INACTIVE;
         // set the state update flag
-        interactiveBoard[i].sensorStateUpdateFlag = (interactiveBoard[i].sensorStatus != state);
+        interactiveBoard[i].sensorStateUpdateFlag = (interactiveBoard[i].sensorStatus != state) ? SENSOR_VALUE_UPDATED : SENSOR_VALUE_NOT_UPDATED;
         // update the sensor state
         interactiveBoard[i].sensorStatus = state;
     }

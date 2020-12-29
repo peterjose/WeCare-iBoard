@@ -23,12 +23,11 @@
 
 /*
 TODO: 
-  Reschedule watchdog
-  Additional serial for ESP communication
+  Additional Serial connector for ESP communication
   Use of CBOR for data transfer or custom protocol
   MQTT feasiblity
   EEPROM module for the actuator calibration information
-  NEOPIXEL module
+  Make interactiveBoard Dynamic
 */
 
 #include <avr/wdt.h>
@@ -58,7 +57,7 @@ void setup()
   //wdt_enable(WDTO_8S);
   DBG_BEGIN(115200);
   CubeModuleInitialise(interactiveBoard, pixelCount);
-  EstablishedInterBoardConnection();
+  EstablishedInterBoardConnection(pixelCount);
 }
 
 /**

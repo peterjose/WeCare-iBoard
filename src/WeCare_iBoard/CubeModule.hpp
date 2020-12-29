@@ -28,9 +28,12 @@ typedef enum
 } ActuatorMode_t;
 
 // Macro definitions for Sensor state info
-#define SENSOR_TRIGGERED        HIGH
-#define SENSOR_ACTIVE           true
-#define SENSOR_INACTIVE         false
+#define SENSOR_TRIGGERED            HIGH
+#define SENSOR_ACTIVE               true
+#define SENSOR_INACTIVE             false
+
+#define SENSOR_VALUE_UPDATED        true
+#define SENSOR_VALUE_NOT_UPDATED    false
 
 /**
  * @brief Data wrapper for the Modular cube  

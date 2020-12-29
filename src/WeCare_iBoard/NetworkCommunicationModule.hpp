@@ -12,7 +12,7 @@
 #ifndef _NETWORK_COMMUNICATION_MODULE_H_
 #define _NETWORK_COMMUNICATION_MODULE_H_
 
-void EstablishedInterBoardConnection();
+void EstablishedInterBoardConnection(int pixelCount);
 void ConnectionTaskRunner();
 
 #endif /* _NETWORK_COMMUNICATION_MODULE_H_ */

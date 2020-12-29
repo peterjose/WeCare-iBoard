@@ -8,15 +8,17 @@
  * @copyright Copyright (c) 2020
  * 
  */
-
+#include "CubeModule.hpp"
 #include "NetworkCommunicationModule.hpp"
+#include "MessageCreator.hpp"
 
 /**
  * @brief 
  * 
  */
-void EstablishedInterBoardConnection()
+void EstablishedInterBoardConnection(int pixelCount)
 {
+    InitialiseMessageModule(pixelCount);
 }
 
 /**
