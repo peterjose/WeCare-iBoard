@@ -56,8 +56,8 @@ void setup() {
   // enable watchdog timer
   //wdt_enable(WDTO_8S);
   DBG_BEGIN(115200);
-  EstablishedInterBoardConnection();
   CubeModuleInitialise(interactiveBoard,pixelCount);
+  EstablishedInterBoardConnection();
 }
 
 /**

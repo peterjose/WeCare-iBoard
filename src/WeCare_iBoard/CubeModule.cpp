@@ -14,23 +14,30 @@
 #include "LedControl.hpp"
 #include "CubeActuate.hpp"
 
-
-void CubeModuleInitialise(CubeModule_t interactiveBoard[],int pixelCount)
+/**
+ * @brief 
+ * 
+ * @param interactiveBoard 
+ * @param pixelCount 
+ */
+void CubeModuleInitialise(CubeModule_t interactiveBoard[], int pixelCount)
 {
-    InitialisedSensorModule(interactiveBoard,pixelCount);
+    InitialisedSensorModule(interactiveBoard, pixelCount);
     LED_Intialise(pixelCount);
-    InitialisedSensorModule(interactiveBoard,pixelCount);
+    InitialisedSensorModule(interactiveBoard, pixelCount);
 }
 
 /**
  * @brief Function that handles the task corresponding to all the cubes
  * 
+ * @param interactiveBoard 
+ * @param pixelCount 
  */
 void CubeTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
 {
-    UpdateSensorStatus(interactiveBoard,pixelCount);
-    LED_updateTaskRunner(interactiveBoard,pixelCount);
-    ActuatorTaskRunner(interactiveBoard,pixelCount);
+    UpdateSensorStatus(interactiveBoard, pixelCount);
+    LED_updateTaskRunner(interactiveBoard, pixelCount);
+    ActuatorTaskRunner(interactiveBoard, pixelCount);
 }
 
 /* EOF */

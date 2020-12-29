@@ -13,6 +13,10 @@
 
 #include <Servo.h>
 
+/**
+ * @brief 
+ * 
+ */
 typedef enum{
     NORMAL_MODE = 0,
     RAMP_MODE_UP,
