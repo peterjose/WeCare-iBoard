@@ -12,7 +12,7 @@
 #ifndef _TIMING_CONFIG_H_
 #define _TIMING_CONFIG_H_
 
-///< SoftTimer Timing information
+///< SoftTimer Timer minimum resolution in milli Seconds
 #define SOFT_TIMER_RESOLUTION_MS                            (uint32_t)500
 
 ///< Dummy Timinig
