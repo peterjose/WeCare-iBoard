@@ -10,7 +10,7 @@
  */
 #include "CubeModule.hpp"
 #include "NetworkCommunicationModule.hpp"
-#include "MessageCreator.hpp"
+#include "IPC_PacketCreator.hpp"
 
 /**
  * @brief 
