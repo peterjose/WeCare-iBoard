@@ -25,7 +25,6 @@
 TODO: 
   Additional Serial connector for ESP communication
   Packet Creator
-  Softtimer - using millis
   Backup - Use of CBOR for data transfer or Custom protocol (bit map)
   MQTT feasiblity - ESP
   EEPROM module for the actuator calibration information
@@ -40,6 +39,7 @@ TODO:
 
 #include "CubeModule.hpp"
 #include "NetworkCommunicationModule.hpp"
+#include "SoftTimer.hpp"
 
 // Interactive Board
 CubeModule_t interactiveBoard[16];
@@ -53,13 +53,18 @@ int pixelCount = sizeof(interactiveBoard) / sizeof(CubeModule_t);
  */
 void setup()
 {
+  
   // Disabled watchdog timer for testing
   wdt_disable();
   // enable watchdog timer
   //wdt_enable(WDTO_8S);
+
   DBG_BEGIN(115200);
+  
   CubeModuleInitialise(interactiveBoard, pixelCount);
   EstablishedInterBoardConnection(pixelCount);
+  InitialiseSoftTimer();
+
 }
 
 /**
@@ -70,6 +75,7 @@ void loop()
 {
   CubeTaskRunner(interactiveBoard, pixelCount);
   ConnectionTaskRunner();
+  SoftTimerTaskRunner();
 }
  
 /* EOF */
