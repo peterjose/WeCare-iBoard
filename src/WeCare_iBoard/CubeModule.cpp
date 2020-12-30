@@ -24,7 +24,7 @@ void CubeModuleInitialise(CubeModule_t interactiveBoard[], int pixelCount)
 {
     InitialisedSensorModule(interactiveBoard, pixelCount);
     LED_Intialise(pixelCount);
-    InitialisedSensorModule(interactiveBoard, pixelCount);
+    InitialisedActuatorModule(interactiveBoard, pixelCount);
 }
 
 /**

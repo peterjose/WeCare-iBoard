@@ -24,8 +24,10 @@
 /*
 TODO: 
   Additional Serial connector for ESP communication
-  Use of CBOR for data transfer or custom protocol
-  MQTT feasiblity
+  Packet Creator
+  Softtimer - using millis
+  Backup - Use of CBOR for data transfer or Custom protocol (bit map)
+  MQTT feasiblity - ESP
   EEPROM module for the actuator calibration information
   Make interactiveBoard Dynamic
 */

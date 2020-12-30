@@ -25,6 +25,7 @@ typedef enum
     DEAD_LOW_MODE,
     ACTIVE_HIGH_MODE,
     NO_UPDATE_MODE,
+    DEACTIVE_MODE,
 } ActuatorMode_t;
 
 // Macro definitions for Sensor state info

@@ -55,6 +55,10 @@ bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, char msgStr[
             {
                 bitSet(msgStr[i / 8], 7 - i % 8);
             }
+            else
+            {
+                bitClear(msgStr[i / 8], 7 - i % 8);
+            }            
             reportMessageFlag |= interactiveBoard[i].sensorStateUpdateFlag;
             interactiveBoard[i].sensorStateUpdateFlag = SENSOR_VALUE_NOT_UPDATED;
         }

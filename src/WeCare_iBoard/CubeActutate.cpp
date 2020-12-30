@@ -78,6 +78,7 @@ void ActuatorTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
                 if (interactiveBoard[i].currentAngle <= interactiveBoard[i].actuatorLowSetting)
                 {
                     interactiveBoard[i].currentAngle = interactiveBoard[i].actuatorLowSetting;
+                    interactiveBoard[i].actuatorMode = NO_UPDATE_MODE;
                 }
             }
             break;
@@ -88,6 +89,7 @@ void ActuatorTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
                 if (interactiveBoard[i].currentAngle >= interactiveBoard[i].actuatorHighSetting)
                 {
                     interactiveBoard[i].currentAngle = interactiveBoard[i].actuatorHighSetting;
+                    interactiveBoard[i].actuatorMode = NO_UPDATE_MODE;
                 }
             }
             break;
