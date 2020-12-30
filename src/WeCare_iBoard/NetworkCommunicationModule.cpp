@@ -18,7 +18,7 @@
  */
 void EstablishedInterBoardConnection(int pixelCount)
 {
-    InitialiseMessageModule(pixelCount);
+    InitialiseIPC_PacketCreator(pixelCount);
 }
 
 /**

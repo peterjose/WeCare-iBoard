@@ -13,9 +13,9 @@
 #define _MESSAGE_CREATOR_H_
 
 void InitialiseMessageModule(int pixelCount);
-int getMessageLength();
-bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, char msgStr[]);
-void parseMessage(CubeModule_t interactiveBoard[], int pixelCount,char msgStr[]);
+int GetMessageLength();
+bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, uint8_t msgPayload[]);
+void ParseMessage(CubeModule_t interactiveBoard[], int pixelCount,uint8_t msgPayload[]);
 
 
 #endif /* _MESSAGE_CREATOR_H_ */

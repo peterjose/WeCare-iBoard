@@ -29,7 +29,7 @@ void InitialiseMessageModule(int pixelCount)
  * 
  * @return int 
  */
-int getMessageLength()
+int GetMessageLength()
 {
     return msgStrByteCount;
 }
@@ -44,7 +44,7 @@ int getMessageLength()
  * @return true 
  * @return false 
  */
-bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, char msgStr[])
+bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, uint8_t msgPayload[])
 {
     bool reportMessageFlag = false;
     if (msgStrByteCount != 0)
@@ -53,11 +53,11 @@ bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, char msgStr[
         {
             if (interactiveBoard[i].sensorStatus == SENSOR_ACTIVE)
             {
-                bitSet(msgStr[i / 8], 7 - i % 8);
+                bitSet(msgPayload[i / 8], 7 - i % 8);
             }
             else
             {
-                bitClear(msgStr[i / 8], 7 - i % 8);
+                bitClear(msgPayload[i / 8], 7 - i % 8);
             }            
             reportMessageFlag |= interactiveBoard[i].sensorStateUpdateFlag;
             interactiveBoard[i].sensorStateUpdateFlag = SENSOR_VALUE_NOT_UPDATED;
@@ -71,14 +71,14 @@ bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, char msgStr[
  * 
  * @param interactiveBoard 
  * @param pixelCount 
- * @param msgStr 
+ * @param msgPayload 
  */
-void parseMessage(CubeModule_t interactiveBoard[], int pixelCount,char msgStr[])
+void ParseMessage(CubeModule_t interactiveBoard[], int pixelCount,uint8_t msgPayload[])
 {
     bool bitInfo = true;
     for (int i = 0; i < pixelCount; i++)
     {
-        bitInfo = (bitRead(msgStr[i / 8], 7 - i % 8) == 1);
+        bitInfo = (bitRead(msgPayload[i / 8], 7 - i % 8) == 1);
         if( interactiveBoard[i].actuationActivated != bitInfo)
         {
             interactiveBoard[i].actuationActivated = bitInfo;
