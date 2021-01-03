@@ -20,9 +20,15 @@
 
 typedef struct IPC_Packet
 {
+    // Header Bytes for packet recognisition
     uint8_t HeaderByte1;
     uint8_t HeaderByte2;
     uint8_t HeaderByte3;
+    // Packet type to recognise it for further processing
+    uint8_t packetType;
+    //packet number to remove duplicates or request again
+    uint8_t packetNumber;
+    // number of the bytes in the payload
     uint8_t payloadByteCount;
     uint8_t *payload;
     uint8_t payload_CRC;
