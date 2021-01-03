@@ -12,7 +12,7 @@
 #include "CubeModule.hpp"
 #include "arduino.h"
 
-void InitialisedSensorModule(CubeModule_t interactiveBoard[], int pixelCount)
+void InitialiseSensorModule(CubeModule_t interactiveBoard[], int pixelCount)
 {
     for (int i = 0; i < pixelCount; i++)
     {

@@ -73,7 +73,7 @@ typedef struct cube
 } CubeModule_t;
 
 // Function prototypes
-void CubeModuleInitialise(CubeModule_t interactiveBoard[], int pixelCount);
+void InitialiseCubeModule(CubeModule_t interactiveBoard[], int pixelCount);
 void CubeTaskRunner(CubeModule_t interactiveBoard[], int pixelCount);
 
 #endif /* CUBE_MODULE_H_ */

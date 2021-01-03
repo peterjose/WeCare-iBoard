@@ -20,11 +20,11 @@
  * @param interactiveBoard 
  * @param pixelCount 
  */
-void CubeModuleInitialise(CubeModule_t interactiveBoard[], int pixelCount)
+void InitialiseCubeModule(CubeModule_t interactiveBoard[], int pixelCount)
 {
-    InitialisedSensorModule(interactiveBoard, pixelCount);
+    InitialiseSensorModule(interactiveBoard, pixelCount);
     LED_Intialise(pixelCount);
-    InitialisedActuatorModule(interactiveBoard, pixelCount);
+    InitialiseActuatorModule(interactiveBoard, pixelCount);
 }
 
 /**

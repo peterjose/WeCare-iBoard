@@ -19,7 +19,7 @@
  * @param interactiveBoard 
  * @param pixelCount 
  */
-void InitialisedActuatorModule(CubeModule_t interactiveBoard[], int pixelCount)
+void InitialiseActuatorModule(CubeModule_t interactiveBoard[], int pixelCount)
 {
     for (int i = 0; i < pixelCount; i++)
     {

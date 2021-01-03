@@ -61,7 +61,7 @@ void setup()
 
   DBG_BEGIN(115200);
   
-  CubeModuleInitialise(interactiveBoard, pixelCount);
+  InitialiseCubeModule(interactiveBoard, pixelCount);
   EstablishedInterBoardConnection(pixelCount);
   InitialiseSoftTimer();
 

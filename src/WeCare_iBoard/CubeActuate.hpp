@@ -12,7 +12,7 @@
 #ifndef _CUBE_ACTUATE_H_
 #define _CUBE_ACTUATE_H_
 
-void InitialisedActuatorModule(CubeModule_t interactiveBoard[], int pixelCount);
+void InitialiseActuatorModule(CubeModule_t interactiveBoard[], int pixelCount);
 void ActuatorTaskRunner(CubeModule_t interactiveBoard[], int pixelCount);
 
 #endif /* _CUBE_ACTUATE_H_ */
