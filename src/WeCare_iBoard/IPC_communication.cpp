@@ -12,8 +12,8 @@
 #include "CircularBuffer.hpp"
 #include "config.hpp"
 
-volatile CircularBuffer_t RX_buffer(RX_BUFFER_SIZE);
-volatile CircularBuffer_t TX_buffer(TX_BUFFER_SIZE);
+volatile CircularBuffer_t<uint8_t> RX_buffer(RX_BUFFER_SIZE);
+volatile CircularBuffer_t<uint8_t> TX_buffer(TX_BUFFER_SIZE);
 
 void Rx_ISR_handler()
 {

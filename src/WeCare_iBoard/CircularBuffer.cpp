@@ -18,7 +18,8 @@
  * @return true 
  * @return false 
  */
-bool CircularBuffer_t::pushByte(uint8_t val)
+template<typename T>
+bool CircularBuffer_t<T>::pushByte(T val)
 {
     if (this->getByteCount() != this->maxSize)
     {
@@ -37,7 +38,8 @@ bool CircularBuffer_t::pushByte(uint8_t val)
  * @return true 
  * @return false 
  */
-bool CircularBuffer_t::pushBytes(uint8_t *elmArr,int elmCount)
+template<typename T>
+bool CircularBuffer_t<T>::pushBytes(T *elmArr,int elmCount)
 {
     if (this->maxSize - this->getByteCount() >= elmCount)
     {
@@ -59,7 +61,8 @@ bool CircularBuffer_t::pushBytes(uint8_t *elmArr,int elmCount)
  * @return true 
  * @return false 
  */
-bool CircularBuffer_t::popBytes(uint8_t *elmArr,int elmCount)
+template<typename T>
+bool CircularBuffer_t<T>::popBytes(T *elmArr,int elmCount)
 {
     if (this->getByteCount() >= elmCount)
     {
@@ -81,7 +84,8 @@ bool CircularBuffer_t::popBytes(uint8_t *elmArr,int elmCount)
  * @return true 
  * @return false 
  */
-bool CircularBuffer_t::peekBytes(uint8_t *elmArr,int elmCount)
+template<typename T>
+bool CircularBuffer_t<T>::peekBytes(T *elmArr,int elmCount)
 {
     int tailLoc = this->tail;
     if (this->getByteCount() >= elmCount)
@@ -101,7 +105,8 @@ bool CircularBuffer_t::peekBytes(uint8_t *elmArr,int elmCount)
  * 
  * @return int 
  */
-inline int CircularBuffer_t::getByteCount(void)
+template<typename T>
+inline int CircularBuffer_t<T>::getByteCount(void)
 {
     return ((this->head >= this->tail) ? (this->head - this->tail) : ((CIRCULAR_BUFFER_MAX_SIZE - this->tail) + this->head + 1));
 }
@@ -111,7 +116,8 @@ inline int CircularBuffer_t::getByteCount(void)
  * 
  * @return int 
  */
-inline int CircularBuffer_t::getMaxBufferSize(void)
+template<typename T>
+inline int CircularBuffer_t<T>::getMaxBufferSize(void)
 {
     return this->maxSize;
 }
