@@ -68,7 +68,13 @@
       X-o-o-o
       X-o-o-o
       X-o-o-o
-  - If pattern recognised, sync actuation of the 'X' blocks indicating winner until the user removes a placed cube or places a cube on a immobile cube.
+  - If pattern recognised
+    - sync actuation of the 'X' blocks indicating winner
+    - check if the user removes a placed cube or places a cube on a immobile cube
+      - if placed/removed
+        - stop actuation
+  - If a cube on iBoard1 is lifted
+    - the respective cube should move down in iBoard2 to keep the game going
 */
 
 //LED colour change for activated cubes for certain default emojis
