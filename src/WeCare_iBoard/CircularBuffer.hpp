@@ -15,7 +15,6 @@
 
 #define CIRCULAR_BUFFER_MAX_SIZE            255
 
-
 /**
  * @brief 
  * 
@@ -23,6 +22,7 @@
 
 template<typename T> class CircularBuffer_t
 {
+    // class Invalid{};
     T *buffer;
     int head;
     int tail;
@@ -35,6 +35,11 @@ public:
         this->tail = 0;
         this->maxSize = bufferSize;
         buffer = (T *)malloc(bufferSize);
+        if(buffer == NULL)
+        {
+            // commented out as arduino complier require to enable a flag to get exception working
+            // throw Invalid();
+        }
     }
     // Destructor
     ~CircularBuffer_t(){
