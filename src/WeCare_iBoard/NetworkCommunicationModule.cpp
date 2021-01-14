@@ -11,6 +11,7 @@
 #include "CubeModule.hpp"
 #include "NetworkCommunicationModule.hpp"
 #include "IPC_PacketCreator.hpp"
+#include "IPC_communication.hpp"
 
 /**
  * @brief 
@@ -25,8 +26,14 @@ void EstablishedInterBoardConnection(int pixelCount)
  * @brief 
  * 
  */
-void ConnectionTaskRunner()
+void ConnectionTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
 {
+    if(PacketCreator(interactiveBoard,pixelCount)){
+        IPC_Packet_t *IPC_packet_ref;
+        GetOutgoingPacketCreated(IPC_packet_ref);
+        Send_IPC_packet(IPC_packet_ref);
+    }
+    PacketParser(interactiveBoard,pixelCount);
 }
 
 /* EOF */

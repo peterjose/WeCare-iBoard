@@ -13,6 +13,6 @@
 #define _NETWORK_COMMUNICATION_MODULE_H_
 
 void EstablishedInterBoardConnection(int pixelCount);
-void ConnectionTaskRunner();
+void ConnectionTaskRunner(CubeModule_t interactiveBoard[], int pixelCount);
 
 #endif /* _NETWORK_COMMUNICATION_MODULE_H_ */
