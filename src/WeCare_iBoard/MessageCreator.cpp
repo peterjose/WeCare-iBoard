@@ -41,8 +41,8 @@ int GetMessageLength()
  * @param pixelCount 
  * @param msgStr 
  * @param msgStrByteCount 
- * @return true 
- * @return false 
+ * @return true if a new message is created
+ * @return false if no new message is created
  */
 bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, uint8_t msgPayload[])
 {
