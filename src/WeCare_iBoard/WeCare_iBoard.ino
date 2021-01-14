@@ -60,11 +60,12 @@ void setup()
   //wdt_enable(WDTO_8S);
 
   DBG_BEGIN(115200);
-  
+  DBG_PRINT_LN(F("Debug port opened"));
   InitialiseCubeModule(interactiveBoard, pixelCount);
   EstablishedInterBoardConnection(pixelCount);
   InitialiseSoftTimer();
-
+  DBG_PRINT_LN(F("WeCare-iBoard Intialised"));
+  
 }
 
 /**
@@ -74,7 +75,7 @@ void setup()
 void loop()
 {
   CubeTaskRunner(interactiveBoard, pixelCount);
-  ConnectionTaskRunner();
+  ConnectionTaskRunner(interactiveBoard, pixelCount);
   SoftTimerTaskRunner();
 }
  
