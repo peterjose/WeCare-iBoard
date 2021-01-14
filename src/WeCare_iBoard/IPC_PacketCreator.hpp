@@ -35,7 +35,9 @@ typedef struct IPC_Packet
 }IPC_Packet_t;
 
 void InitialiseIPC_PacketCreator(int pixelCount);
-void PacketCreator(CubeModule_t interactiveBoard[], int pixelCount);
+void DeinitialiseIPC_PacketCreator(void);
+bool PacketCreator(CubeModule_t interactiveBoard[], int pixelCount);
 void PacketParser(CubeModule_t interactiveBoard[], int pixelCount);
+void GetOutgoingPacketCreated(IPC_Packet_t *IPC_packet_ref);
 
 #endif /* _IPC_PACKET_CREATOR_H_ */

@@ -54,10 +54,20 @@ void InitialiseIPC_PacketCreator(int pixelCount)
 /**
  * @brief 
  * 
+ */
+void DeinitialiseIPC_PacketCreator(void)
+{
+    free(OutgoingMsg);
+}
+
+
+/**
+ * @brief 
+ * 
  * @param interactiveBoard 
  * @param pixelCount 
  */
-void PacketCreator(CubeModule_t interactiveBoard[], int pixelCount)
+bool PacketCreator(CubeModule_t interactiveBoard[], int pixelCount)
 {
     char msgStr[GetMessageLength()];
     if (CreateMessage(interactiveBoard, pixelCount, OutgoingMsg))
@@ -65,7 +75,19 @@ void PacketCreator(CubeModule_t interactiveBoard[], int pixelCount)
         IPC_packetOutgoing.payloadByteCount = GetMessageLength();
         IPC_packetOutgoing.payload = OutgoingMsg;
         IPC_packetOutgoing.payload_CRC =getCRC(OutgoingMsg,GetMessageLength());
+        return true;
     }
+    return false;
+}
+
+/**
+ * @brief Get the Outgoing Packet Created object
+ * 
+ * @param IPC_packet_ref 
+ */
+void GetOutgoingPacketCreated(IPC_Packet_t *IPC_packet_ref)
+{
+    IPC_packet_ref = &IPC_packetOutgoing;
 }
 
 /**
