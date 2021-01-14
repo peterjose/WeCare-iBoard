@@ -13,4 +13,6 @@
 #define _IPC_COMMUNICATION_H_
 
 
+void Send_IPC_packet(IPC_Packet_t *IPC_packet);
+
 #endif /* _IPC_COMMUNICATION_H_ */
