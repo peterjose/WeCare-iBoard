@@ -33,6 +33,8 @@ typedef enum
 #define SENSOR_ACTIVE               true
 #define SENSOR_INACTIVE             false
 
+// Sensor value update flag values, 
+// dont change these flag values, if did the update logic code has to be modified
 #define SENSOR_VALUE_UPDATED        true
 #define SENSOR_VALUE_NOT_UPDATED    false
 

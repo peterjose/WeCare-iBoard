@@ -22,6 +22,7 @@ typedef enum
     DUMMY_TIMER1                        ,
     /* ADD new timers Here */
     MAX_SOFT_TIMER_COUNT                , // TOTAL number of timers available
+    // Dont add any timers after MAX_SOFT_TIMER_COUNT
 } SoftTimer_t;
 
 void InitialiseSoftTimer(void);
