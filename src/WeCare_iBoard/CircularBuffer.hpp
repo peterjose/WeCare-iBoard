@@ -147,6 +147,25 @@ public:
      * @return true 
      * @return false 
      */
+    bool peekByte(T *element)
+    {
+        int tailLoc = this->tail;
+        if(this->getByteCount() != 0){
+            element = this->buffer[tailLoc];
+            tailLoc = (tailLoc + 1) % this->maxSize;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @brief 
+     * 
+     * @param elmArr 
+     * @param elmCount 
+     * @return true 
+     * @return false 
+     */
     bool peekBytes(T *elmArr,int elmCount)
     {
         int tailLoc = this->tail;
