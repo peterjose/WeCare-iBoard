@@ -105,26 +105,4 @@ void Send_IPC_packet(IPC_Packet_t* IPC_packet)
     DBG_PRINT_LN(TX_buffer.getByteCount());
 }
 
-// /**
-//  * @brief 
-//  * 
-//  * @param IPC_packet 
-//  */
-// void Send_IPC_packet(IPC_Packet_t** IPC_packet)
-// {
-//     int headerSizeLen = (&((*IPC_packet)->HeaderByte1) - &((*IPC_packet)->payloadByteCount))/(sizeof(uint8_t));
-//     // to fix issues in the memory allocations
-//     headerSizeLen *= (headerSizeLen < 0) ? -1 :1; 
-//     TX_buffer.pushBytes((uint8_t*)&((*IPC_packet)->HeaderByte1),headerSizeLen);
-//     TX_buffer.pushBytes((uint8_t*)(*IPC_packet)->payload,(*IPC_packet)->payloadByteCount);
-//     TX_buffer.pushByte((*IPC_packet)->payload_CRC);
-//     Serial.write((*IPC_packet)->payload_CRC);
-//     cli();
-//     UCSR1B |= (1 << UDRIE1);
-//     sei();
-//     DBG_PRINT_LN(F("Send_IPC_packet >> Added to buffer"));
-//     DBG_PRINT(F("TX buffer size "));
-//     DBG_PRINT_LN(TX_buffer.getByteCount());
-// }
-
 /* EOF */
