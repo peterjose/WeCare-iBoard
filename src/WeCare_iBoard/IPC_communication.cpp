@@ -105,4 +105,78 @@ void Send_IPC_packet(IPC_Packet_t* IPC_packet)
     DBG_PRINT_LN(TX_buffer.getByteCount());
 }
 
+void Receive_IPC_packet()
+{
+    uint8_t val;
+    if(RX_buffer.popByte(&val))
+    {
+        DBG_WRITE(val);
+    }
+}
+
+/**
+ * @brief 
+ * 
+ * @return int 
+ */
+int GetIPC_RX_ByteCount()
+{
+    return RX_buffer.getByteCount();
+}
+
+/**
+ * @brief 
+ * 
+ * @param IPC_packet 
+ * @return true 
+ * @return false 
+ */
+bool GetIPC_RX_HeaderBytes(IPC_Packet_t* IPC_packet)
+{
+    int headerSizeLen = ((&(IPC_packet->payloadByteCount) - &(IPC_packet->HeaderByte1))/(sizeof(uint8_t)))+1;
+    // to fix issues in the memory allocations
+    headerSizeLen *= (headerSizeLen < 0) ? -1 :1; 
+    return RX_buffer.peekBytes((uint8_t*)&(IPC_packet->HeaderByte1),headerSizeLen);
+}
+
+/**
+ * @brief 
+ * 
+ * @param IPC_packet 
+ * @return true 
+ * @return false 
+ */
+bool GetIPC_RX_PacketBytes(IPC_Packet_t* IPC_packet)
+{
+    int headerSizeLen = ((&(IPC_packet->payloadByteCount) - &(IPC_packet->HeaderByte1))/(sizeof(uint8_t)))+1;
+    // to fix issues in the memory allocations
+    headerSizeLen *= (headerSizeLen < 0) ? -1 :1; 
+    if(RX_buffer.popBytes((uint8_t*)&(IPC_packet->HeaderByte1),headerSizeLen))
+    {
+        if(RX_buffer.getByteCount() >= IPC_packet->payloadByteCount +1)
+        {
+            IPC_packet->payload = (uint8_t *)malloc(IPC_packet->payloadByteCount);
+            if(IPC_packet->payload != NULL)
+            {
+                bool flag = false;
+                flag = RX_buffer.popBytes((uint8_t*)(IPC_packet->payload),IPC_packet->payloadByteCount);
+                return (flag & RX_buffer.popByte((uint8_t*)&(IPC_packet->payload_CRC)));
+            }
+        }
+    }
+    return false;
+}
+
+/**
+ * @brief 
+ * 
+ * @param size 
+ */
+void RemoveIPC_RX_Bytes(int size)
+{
+    uint8_t val = 0;
+    if(RX_buffer.getByteCount() >= size){
+        RX_buffer.popByte(&val);
+    }
+}
 /* EOF */
