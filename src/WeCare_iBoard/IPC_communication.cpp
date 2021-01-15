@@ -12,6 +12,10 @@
  * 
  */
 
+// comment the following line to disable the Debug printing over the UART
+// #define DEBUG_ENABLE
+#include "DebugPrint.hpp"
+
 #include "CircularBuffer.hpp"
 #include "CubeModule.hpp"
 #include "IPC_PacketCreator.hpp"
@@ -23,7 +27,10 @@
 volatile CircularBuffer_t<uint8_t> RX_buffer(RX_BUFFER_SIZE);
 volatile CircularBuffer_t<uint8_t> TX_buffer(TX_BUFFER_SIZE);
 
-
+/**
+ * @brief Construct a new ISR object
+ * 
+ */
 ISR(USART1_RX_vect)
 {
     uint8_t val = UDR1;
@@ -31,23 +38,28 @@ ISR(USART1_RX_vect)
     RX_buffer.pushByte(val);
 }
 
+/**
+ * @brief Construct a new ISR object
+ * 
+ */
 ISR(USART1_TX_vect)
 {
 
 }
 
+/**
+ * @brief Construct a new ISR object
+ * 
+ */
 ISR(USART1_UDRE_vect)
 {
-	if (!TX_buffer.getByteCount())
-	{
-        uint8_t val;
-        // get data from the circular buffer
-        TX_buffer.popByte(&val);
-		// Transmit data
-		UDR1 = val;
+    uint8_t val;
+    // get data from the circular buffer
+	if (TX_buffer.popByte(&val)){
+        // Transmit data
+        UDR1 = val;
 	}
-	else
-	{
+	else{
         cli();
 		// Disable the interrupt.
 		UCSR1B &= ~(1 << UDRIE1);
@@ -55,47 +67,64 @@ ISR(USART1_UDRE_vect)
 	}
 }
 
-/**
- * @brief 
- * 
- */
-void Rx_ISR_handler()
-{
-    // TODO: store the data from the RX Data register to the circular buffer
-    uint8_t val;
-    RX_buffer.pushByte(val);
-}
 
 /**
- * @brief 
+ * @brief Initialise the IPC communication
  * 
  */
-void InitialiseIPC_Communication()
+void InitialiseIPC_Communication(void)
 {
+    // Disable interrupts
     cli();
-    // TODO: Intialise the UART and interrupts for the same
     UBRR1 = BAUD_PRESCALER;                                 // Set the baud rate prescale rate register
     UCSR1B = ((1<<RXEN1)|(1<<TXEN1)|(1 << RXCIE1));         // Enable receiver and transmitter and Rx interrupt
     UCSR1C = ((0<<USBS1)|(1 << UCSZ11)|(1<<UCSZ10));        // Set frame format: 8data, 1 stop bit
+    // enable back interrupts
     sei();
 }
+
 
 /**
  * @brief 
  * 
  * @param IPC_packet 
  */
-void Send_IPC_packet(IPC_Packet_t *IPC_packet)
+void Send_IPC_packet(IPC_Packet_t* IPC_packet)
 {
-    int headerSizeLen = (&(IPC_packet->HeaderByte1) - &(IPC_packet->payloadByteCount))/(sizeof(uint8_t));
+    int headerSizeLen = ((&(IPC_packet->payloadByteCount) - &(IPC_packet->HeaderByte1))/(sizeof(uint8_t)))+1;
     // to fix issues in the memory allocations
     headerSizeLen *= (headerSizeLen < 0) ? -1 :1; 
-    RX_buffer.pushBytes((uint8_t*)IPC_packet,headerSizeLen);
-    RX_buffer.pushBytes((uint8_t*)IPC_packet->payload,IPC_packet->payloadByteCount);
-    RX_buffer.pushByte(IPC_packet->payload_CRC);
+    TX_buffer.pushBytes((uint8_t*)&(IPC_packet->HeaderByte1),headerSizeLen);
+    TX_buffer.pushBytes((uint8_t*)(IPC_packet)->payload,IPC_packet->payloadByteCount);
+    TX_buffer.pushByte(IPC_packet->payload_CRC);
     cli();
     UCSR1B |= (1 << UDRIE1);
     sei();
+    DBG_PRINT_LN(F("Send_IPC_packet >> Added to buffer"));
+    DBG_PRINT(F("TX buffer size "));
+    DBG_PRINT_LN(TX_buffer.getByteCount());
 }
+
+// /**
+//  * @brief 
+//  * 
+//  * @param IPC_packet 
+//  */
+// void Send_IPC_packet(IPC_Packet_t** IPC_packet)
+// {
+//     int headerSizeLen = (&((*IPC_packet)->HeaderByte1) - &((*IPC_packet)->payloadByteCount))/(sizeof(uint8_t));
+//     // to fix issues in the memory allocations
+//     headerSizeLen *= (headerSizeLen < 0) ? -1 :1; 
+//     TX_buffer.pushBytes((uint8_t*)&((*IPC_packet)->HeaderByte1),headerSizeLen);
+//     TX_buffer.pushBytes((uint8_t*)(*IPC_packet)->payload,(*IPC_packet)->payloadByteCount);
+//     TX_buffer.pushByte((*IPC_packet)->payload_CRC);
+//     Serial.write((*IPC_packet)->payload_CRC);
+//     cli();
+//     UCSR1B |= (1 << UDRIE1);
+//     sei();
+//     DBG_PRINT_LN(F("Send_IPC_packet >> Added to buffer"));
+//     DBG_PRINT(F("TX buffer size "));
+//     DBG_PRINT_LN(TX_buffer.getByteCount());
+// }
 
 /* EOF */
