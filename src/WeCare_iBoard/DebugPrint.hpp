@@ -18,11 +18,13 @@
     #define DBG_PRINT(x)        Serial.print(x);
     #define DBG_PRINT_LN(x)     Serial.println(x);
     #define DBG_PRINT_HEX(x)    Serial.print(x,HEX);
+    #define DBG_WRITE(x)        Serial.write(x);
 #else
     #define DBG_BEGIN(x)
     #define DBG_PRINT(x)
     #define DBG_PRINT_LN(x)
     #define DBG_PRINT_HEX(x)
+    #define DBG_WRITE(x)
 #endif /* DEBUG_ENABLE */
 
 #endif /* _DEBUG_PRINT_H_ */
