@@ -19,6 +19,7 @@
  */
 void EstablishedInterBoardConnection(int pixelCount)
 {
+    InitialiseIPC_Communication();
     InitialiseIPC_PacketCreator(pixelCount);
 }
 
@@ -30,7 +31,7 @@ void ConnectionTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
 {
     if(PacketCreator(interactiveBoard,pixelCount)){
         IPC_Packet_t *IPC_packet_ref;
-        GetOutgoingPacketCreated(IPC_packet_ref);
+        GetOutgoingPacketCreated(&IPC_packet_ref);
         Send_IPC_packet(IPC_packet_ref);
     }
     PacketParser(interactiveBoard,pixelCount);
