@@ -16,7 +16,7 @@
 #define RX_BUFFER_SIZE              255
 #define TX_BUFFER_SIZE              255
 
-#define BAUDRATE_NETWORK_SERIAL     115200
+#define BAUDRATE_NETWORK_SERIAL     9600
 
 
 #endif /* _CONFIG_H_ */
