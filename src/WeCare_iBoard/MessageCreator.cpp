@@ -9,6 +9,10 @@
  * 
  */
 
+// comment the following line to disable the Debug printing over the UART
+// #define DEBUG_ENABLE
+#include "DebugPrint.hpp"
+
 #include "CubeModule.hpp"
 #include "Arduino.h"
 
@@ -22,6 +26,8 @@ int msgStrByteCount = 0;
 void InitialiseMessageModule(int pixelCount)
 {
     msgStrByteCount = (pixelCount / 8) + ((pixelCount % 8) == 0 ? 0 : 1);
+    DBG_PRINT(F("InitialiseMessageModule >> Initialised, msg payload size "));
+    DBG_PRINT_LN(msgStrByteCount);
 }
 
 /**
@@ -46,23 +52,33 @@ int GetMessageLength()
  */
 bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, uint8_t msgPayload[])
 {
-    bool reportMessageFlag = false;
+    bool reportMessageFlag = SENSOR_VALUE_NOT_UPDATED;
     if (msgStrByteCount != 0)
     {
         for (int i = 0; i < pixelCount; i++)
         {
+            // DBG_PRINT(F("Sensor at pxl "));
+            // DBG_PRINT(i);
             if (interactiveBoard[i].sensorStatus == SENSOR_ACTIVE)
             {
+                // DBG_PRINT_LN(" is Active");
                 bitSet(msgPayload[i / 8], 7 - i % 8);
             }
             else
             {
+                // DBG_PRINT_LN(" is Inactive");
                 bitClear(msgPayload[i / 8], 7 - i % 8);
             }            
             reportMessageFlag |= interactiveBoard[i].sensorStateUpdateFlag;
             interactiveBoard[i].sensorStateUpdateFlag = SENSOR_VALUE_NOT_UPDATED;
         }
     }
+    #ifdef DEBUG_ENABLE
+    if(reportMessageFlag == SENSOR_VALUE_UPDATED)
+    {
+        DBG_PRINT_LN(F("CreateMessage >> Msg created"));
+    }
+    #endif /* DEBUG_ENABLE */
     return (reportMessageFlag == SENSOR_VALUE_UPDATED);
 }
 

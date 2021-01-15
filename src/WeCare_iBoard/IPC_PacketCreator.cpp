@@ -9,6 +9,10 @@
  * 
  */
 
+// comment the following line to disable the Debug printing over the UART
+// #define DEBUG_ENABLE
+#include "DebugPrint.hpp"
+
 #include "CubeModule.hpp"
 #include "IPC_PacketCreator.hpp"
 #include "MessageCreator.hpp"
@@ -67,8 +71,17 @@ bool InitialiseIPC_PacketCreator(int pixelCount)
 void DeinitialiseIPC_PacketCreator(void)
 {
     free(OutgoingMsg);
+    DBG_PRINT_LN(F("DeinitialiseIPC_PacketCreator >> Done"));
 }
 
+static void printCreatedMsg()
+{
+    for (size_t i = 0; i < GetMessageLength(); i++)
+    {
+        DBG_WRITE(OutgoingMsg[i]);
+    }
+    
+}
 
 /**
  * @brief 
@@ -78,9 +91,16 @@ void DeinitialiseIPC_PacketCreator(void)
  */
 bool PacketCreator(CubeModule_t interactiveBoard[], int pixelCount)
 {
-    char msgStr[GetMessageLength()];
     if (CreateMessage(interactiveBoard, pixelCount, OutgoingMsg))
     {
+        DBG_PRINT(F("PacketCreator >> New Pkt created with payload len "));
+        DBG_PRINT(GetMessageLength());
+        DBG_PRINT(F(" msg as "));
+        #ifdef DEBUG_ENABLE
+        printCreatedMsg();
+        #endif /* DEBUG_ENABLE */
+        DBG_PRINT_LN();
+        IPC_packetOutgoing.packetNumber = (IPC_packetOutgoing.packetNumber + 1) % MAX_PACKET_NO;
         IPC_packetOutgoing.payloadByteCount = GetMessageLength();
         IPC_packetOutgoing.payload = OutgoingMsg;
         IPC_packetOutgoing.payload_CRC =getCRC(OutgoingMsg,GetMessageLength());
