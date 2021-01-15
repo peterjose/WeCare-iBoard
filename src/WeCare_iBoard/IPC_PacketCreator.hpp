@@ -18,6 +18,9 @@
 #define IPC_HEADER_BYTE2        0xEE
 #define IPC_HEADER_BYTE3        0x5A
 
+#define INITIAL_PACKET_NO       0x00
+#define MAX_PACKET_NO           256
+
 typedef struct IPC_Packet
 {
     // Header Bytes for packet recognisition
@@ -34,10 +37,10 @@ typedef struct IPC_Packet
     uint8_t payload_CRC;
 }IPC_Packet_t;
 
-void InitialiseIPC_PacketCreator(int pixelCount);
+bool InitialiseIPC_PacketCreator(int pixelCount);
 void DeinitialiseIPC_PacketCreator(void);
 bool PacketCreator(CubeModule_t interactiveBoard[], int pixelCount);
 void PacketParser(CubeModule_t interactiveBoard[], int pixelCount);
-void GetOutgoingPacketCreated(IPC_Packet_t *IPC_packet_ref);
+void GetOutgoingPacketCreated(IPC_Packet_t** IPC_packet_ref);
 
 #endif /* _IPC_PACKET_CREATOR_H_ */

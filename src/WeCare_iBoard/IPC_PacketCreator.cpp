@@ -42,13 +42,22 @@ static uint8_t getCRC(uint8_t *data, int len)
  * 
  * @param pixelCount 
  */
-void InitialiseIPC_PacketCreator(int pixelCount)
+bool InitialiseIPC_PacketCreator(int pixelCount)
 {
     InitialiseMessageModule(pixelCount);
     IPC_packetOutgoing.HeaderByte1 = IPC_HEADER_BYTE1;
     IPC_packetOutgoing.HeaderByte2 = IPC_HEADER_BYTE2;
     IPC_packetOutgoing.HeaderByte3 = IPC_HEADER_BYTE3;
+    IPC_packetOutgoing.packetNumber = INITIAL_PACKET_NO;
     OutgoingMsg = (uint8_t *)malloc(GetMessageLength());
+    if(OutgoingMsg != NULL)
+    {
+        DBG_PRINT_LN(F("InitialiseIPC_PacketCreator >> Initialised"));
+        return true;
+    }
+    DBG_PRINT_LN(F("InitialiseIPC_PacketCreator >> Initialisation Failed"));
+    return false;
+    
 }
 
 /**
@@ -85,9 +94,9 @@ bool PacketCreator(CubeModule_t interactiveBoard[], int pixelCount)
  * 
  * @param IPC_packet_ref 
  */
-void GetOutgoingPacketCreated(IPC_Packet_t *IPC_packet_ref)
+void GetOutgoingPacketCreated(IPC_Packet_t** IPC_packet_ref)
 {
-    IPC_packet_ref = &IPC_packetOutgoing;
+    *IPC_packet_ref = &IPC_packetOutgoing;
 }
 
 /**
