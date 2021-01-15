@@ -15,6 +15,8 @@
 ///< SoftTimer Timer minimum resolution in milli Seconds
 #define SOFT_TIMER_RESOLUTION_MS                            (uint32_t)500
 
+#define IPC_PACKET_TIMEOUT_PERIOD                           (uint32_t)(500/SOFT_TIMER_RESOLUTION_MS)        // 500 milli seconds
+
 ///< Dummy Timinig
 #define DUMMY_TIMER_PERIOD                                  (uint32_t)(10000/SOFT_TIMER_RESOLUTION_MS)        // 10 seconds
 
