@@ -10,7 +10,7 @@
  */
 
 // comment the following line to disable the Debug printing over the UART
-// #define DEBUG_ENABLE
+#define DEBUG_ENABLE
 #include "DebugPrint.hpp"
 
 #include "CubeModule.hpp"
@@ -61,12 +61,12 @@ bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, uint8_t msgP
             // DBG_PRINT(i);
             if (interactiveBoard[i].sensorStatus == SENSOR_ACTIVE)
             {
-                // DBG_PRINT_LN(" is Active");
+                // DBG_PRINT_LN(F(" is Active"));
                 bitSet(msgPayload[i / 8], 7 - i % 8);
             }
             else
             {
-                // DBG_PRINT_LN(" is Inactive");
+                // DBG_PRINT_LN(F(" is Inactive"));
                 bitClear(msgPayload[i / 8], 7 - i % 8);
             }            
             reportMessageFlag |= interactiveBoard[i].sensorStateUpdateFlag;
@@ -89,8 +89,13 @@ bool CreateMessage(CubeModule_t interactiveBoard[], int pixelCount, uint8_t msgP
  * @param pixelCount 
  * @param msgPayload 
  */
-void ParseMessage(CubeModule_t interactiveBoard[], int pixelCount,uint8_t msgPayload[])
+void ParseMessage(CubeModule_t interactiveBoard[], int pixelCount,uint8_t msgPayload[],int size)
 {
+    if(size != msgStrByteCount)
+    {        
+        DBG_PRINT_LN(F("ParseMessage >> size mismatch"));
+        return;
+    }
     bool bitInfo = true;
     for (int i = 0; i < pixelCount; i++)
     {
@@ -98,6 +103,10 @@ void ParseMessage(CubeModule_t interactiveBoard[], int pixelCount,uint8_t msgPay
         if( interactiveBoard[i].actuationActivated != bitInfo)
         {
             interactiveBoard[i].actuationActivated = bitInfo;
+            DBG_PRINT(F("Actuator at pxl "));
+            DBG_PRINT(i);
+            DBG_PRINT(F(" is "));
+            DBG_PRINT_LN((bitInfo?F("Active "):F("Inactive")));
             if(interactiveBoard[i].actuationActivated == false)
             {
                 interactiveBoard[i].actuatorMode = DEAD_LOW_MODE;
