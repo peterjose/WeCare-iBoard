@@ -40,12 +40,39 @@ TODO:
 #include "CubeModule.hpp"
 #include "NetworkCommunicationModule.hpp"
 #include "SoftTimer.hpp"
+#include "TimingConfig.hpp"
 
 // Interactive Board
-CubeModule_t interactiveBoard[16];
+CubeModule_t interactiveBoard[1];
 
 // pixel count of the interactive board
 int pixelCount = sizeof(interactiveBoard) / sizeof(CubeModule_t);
+
+/**
+ * @brief 
+ * 
+ */
+void DummyInitfn()
+{
+  interactiveBoard[0].actuatorPin = 3;
+  interactiveBoard[0].sensorPin = 4;
+}
+/**
+ * @brief 
+ * 
+ */
+void DummyRunfn()
+{
+  static bool sensorVal = SENSOR_ACTIVE;
+  if(!GetSoftTimer(DUMMY_TIMER1)){
+    DBG_PRINT_LN(F("DummyRunfn >> Timer DUMMY_TIMER1 expired"));
+    SetSoftTimer(DUMMY_TIMER1,DUMMY_TIMER_PERIOD);
+    DBG_PRINT_LN(F("DummyRunfn >> Timer DUMMY_TIMER1, reloaded"));
+    interactiveBoard[0].sensorStateUpdateFlag = SENSOR_VALUE_UPDATED;
+    interactiveBoard[0].sensorStatus = sensorVal;
+    sensorVal = !sensorVal;
+  }
+}
 
 /**
  * @brief setup function to intialise all the components
@@ -53,7 +80,7 @@ int pixelCount = sizeof(interactiveBoard) / sizeof(CubeModule_t);
  */
 void setup()
 {
-  
+  DummyInitfn();
   // Disabled watchdog timer for testing
   wdt_disable();
   // enable watchdog timer
@@ -64,8 +91,9 @@ void setup()
   InitialiseCubeModule(interactiveBoard, pixelCount);
   EstablishedInterBoardConnection(pixelCount);
   InitialiseSoftTimer();
-  DBG_PRINT_LN(F("WeCare-iBoard Intialised"));
-  
+  DBG_PRINT(F("WeCare-iBoard Intialised with "));
+  DBG_PRINT(pixelCount);
+  DBG_PRINT_LN(F(" pixels"));
 }
 
 /**
@@ -74,7 +102,8 @@ void setup()
  */
 void loop()
 {
-  CubeTaskRunner(interactiveBoard, pixelCount);
+  DummyRunfn();
+  // CubeTaskRunner(interactiveBoard, pixelCount);
   ConnectionTaskRunner(interactiveBoard, pixelCount);
   SoftTimerTaskRunner();
 }
