@@ -16,6 +16,6 @@
 #define SOFT_TIMER_RESOLUTION_MS                            (uint32_t)500
 
 ///< Dummy Timinig
-#define DUMMY_TIMER_PERIOD                                  (uint32_t)(600000/SOFT_TIMER_RESOLUTION_MS)        // 10 mins
+#define DUMMY_TIMER_PERIOD                                  (uint32_t)(10000/SOFT_TIMER_RESOLUTION_MS)        // 10 seconds
 
 #endif /* _TIMING_CONFIG_H_ */
