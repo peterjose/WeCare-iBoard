@@ -51,6 +51,16 @@ public:
     /**
      * @brief 
      * 
+     */
+    void flushBuffer()
+    {
+        this->head = 0;
+        this->tail = 0;
+    }
+
+    /**
+     * @brief 
+     * 
      * @param val 
      * @return true 
      * @return false 
@@ -100,7 +110,7 @@ public:
     {
         if (this->getByteCount() != 0)
         {
-            element = this->buffer[this->tail];
+            *element = this->buffer[this->tail];
             this->tail = (this->tail + 1) % this->maxSize;
             return true;
         }
