@@ -54,28 +54,32 @@
         - change to default mode
 - Play mode:
   - Scenario 1 and 2 used during the play
-  - Different LED colour used for each user
-  - Patter recognition:
-    - Pattern 1:
-      X-X-X-X
-    - Pattern 2:
-      X-o-o-o
-      o-X-o-o
-      o-o-X-o
-      o-o-o-X
-    - Pattern 3:
-      X-o-o-o
-      X-o-o-o
-      X-o-o-o
-      X-o-o-o
-  - If pattern recognised
-    - sync actuation of the 'X' blocks indicating winner
-    - check if the user removes a placed cube or places a cube on a immobile cube
-      - if placed/removed
-        - stop actuation
-  - If a cube on iBoard1 is lifted
-    - the respective cube should move down in iBoard2 to keep the game going
-*/
+  - Check if the boards are clear of all cubes on the top layer
+    -yes, LED light - Green
+      - Users place a cube on any cube and Game play starts
+      - Different LED colour used for each user
+      - Patter recognition:
+         - Pattern 1:
+           X-X-X-X
+         - Pattern 2:
+           X-o-o-o
+           o-X-o-o
+           o-o-X-o
+           o-o-o-X
+        - Pattern 3:
+          X-o-o-o
+          X-o-o-o
+          X-o-o-o
+          X-o-o-o
+      - If pattern recognised
+          - sync actuation of the 'X' blocks indicating winner
+      - check if the user removes a placed cube or places a cube on a immobile cube
+          - if placed/removed
+              - stop actuation
+      - If a cube on iBoard1 is lifted
+          - the respective cube should move down in iBoard2 to keep the game going
+          -no, no wait. Wait till everything is removed.
+    */
 
 //LED colour change for activated cubes for certain default emojis
 /* Scenario 4: Heart
