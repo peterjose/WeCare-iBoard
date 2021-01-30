@@ -100,6 +100,7 @@ static void printCreatedMsg()
  */
 bool PacketCreator(CubeModule_t interactiveBoard[], int pixelCount)
 {
+    memset(OutgoingMsg,0,GetMessageLength());
     if (CreateMessage(interactiveBoard, pixelCount, OutgoingMsg))
     {
         DBG_PRINT(F("PacketCreator >> New Pkt created with payload len "));
