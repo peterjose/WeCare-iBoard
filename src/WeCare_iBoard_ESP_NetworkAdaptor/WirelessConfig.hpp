@@ -25,4 +25,9 @@
 #define AIO_KEY         "...your AIO key..."
 
 
+// fill in the MAC address of the boards
+#define BOARD1_MAC      "XX:XX:XX:XX:XX:XX"
+// #define BOARD2_MAC      "XX:XX:XX:XX:XX:XX"
+
+
 #endif /* _WIRELESS_CONFIG_H_ */

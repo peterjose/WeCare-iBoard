@@ -9,7 +9,7 @@
  * 
  */
 
-#define ENABLE_DEBUG
+#define DEBUG_ENABLE
 #include "DebugPrint.hpp"
 
 #include <ESP8266WiFi.h>
@@ -19,6 +19,9 @@
 #include "TimingConfig.hpp"
 #include "WirelessConfig.hpp"
 #include "MQTT_Connector.hpp"
+
+
+#define DEVICE_BOARD(x)     (x == BOARD1_MAC) ?"Board1":"Board2"
 
 /************ Global State (you don't need to change this!) ******************/
 
@@ -31,9 +34,16 @@ Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO
 /****************************** Feeds ***************************************/
 
 // Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
-Adafruit_MQTT_Publish board1 = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/Board1");
+Adafruit_MQTT_Publish Board_self = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/BoardX" );
 
-Adafruit_MQTT_Subscribe board2 = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/Board2");
+Adafruit_MQTT_Subscribe Board_other = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/BoardX");
+
+static void processingIncomingPacket(char *data, uint16_t len)
+{
+    // TODO: set the data for processing and then send to the device
+    DBG_PRINT(F("Data rcvd for board : "))
+    DBG_PRINT_LN(data);
+}
 
 /**
  * @brief Function to connect and reconnect as necessary to the MQTT server.
@@ -45,10 +55,9 @@ static bool MQTT_connect()
 {
     static int retries = 0;
     int8_t ret = 0;
-
     // Stop if already connected.
     if (mqtt.connected())
-    {
+    { 
         // reset the timer for MQTT reconnect timer since connection is proper
         SetSoftTimer(MQTT_TIMEOUT_TIMER, MQTT_RECONNECT_TIMEOUT_PERIOD);
         retries = 0;
@@ -56,7 +65,7 @@ static bool MQTT_connect()
     }
 
     // wait till timer expires
-    if (!GetSoftTimer(MQTT_TIMEOUT_TIMER))
+    if (GetSoftTimer(MQTT_TIMEOUT_TIMER))
     {
         return false;
     }
@@ -83,7 +92,11 @@ static bool MQTT_connect()
  */
 void Initialise_MQTT(void)
 {
-    mqtt.subscribe(&board2);
+    Board_self = Adafruit_MQTT_Publish(&mqtt,  ((WiFi.macAddress() == BOARD1_MAC) ? (AIO_USERNAME "/feeds/Board1") : (AIO_USERNAME "/feeds/Board2")));
+    Board_other = Adafruit_MQTT_Subscribe(&mqtt, ((WiFi.macAddress() == BOARD1_MAC) ? (AIO_USERNAME "/feeds/Board2") : (AIO_USERNAME "/feeds/Board1")));
+
+    Board_other.setCallback(processingIncomingPacket);
+    mqtt.subscribe(&Board_other);
     SetSoftTimer(MQTT_TIMEOUT_TIMER, MQTT_RECONNECT_TIMEOUT_PERIOD);
 }
 
@@ -96,40 +109,17 @@ void MQTT_TaskRunner(void)
     // Ensure the connection to the MQTT server is alive (this will make the first
     // connection and automatically reconnect when disconnected).  See the MQTT_connect
     // function definition further below.
-    MQTT_connect();
-
-    // this is our 'wait for incoming subscription packets' busy subloop
-    // try to spend your time here
-
-    // Adafruit_MQTT_Subscribe *subscription;
-    // while ((subscription = mqtt.readSubscription(5000)))
-    // {
-    //     if (subscription == &onoffbutton)
-    //     {
-    //         DBG_PRINT(F("Got: "));
-    //         DBG_PRINT_LN((char *)onoffbutton.lastread);
-    //     }
-    // }
-
-    // // Now we can publish stuff!
-    // Serial.print(F("\nSending photocell val "));
-    // Serial.print(x);
-    // Serial.print("...");
-    // if (!photocell.publish(x++))
-    // {
-    //     DBG_PRINT_LN(F("Failed"));
-    // }
-    // else
-    // {
-    //     DBG_PRINT_LN(F("OK!"));
-    // }
-
-    // ping the server to keep the mqtt connection alive
-    // NOT required if you are publishing once every KEEPALIVE seconds
-
-    if (!mqtt.ping())
+    if(MQTT_connect())
     {
-        mqtt.disconnect();
+        mqtt.processPackets(1);
+
+        // ping the server to keep the mqtt connection alive
+        // NOT required if you are publishing once every KEEPALIVE seconds
+
+        if (!mqtt.ping())
+        {
+            mqtt.disconnect();
+        }
     }
 }
 
