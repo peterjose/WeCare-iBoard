@@ -5,6 +5,7 @@ The text message is decoded to a symbol/icon, then it is transferred to the othe
 ![alt main](https://github.com/peterjose/WeCare-iBoard/blob/main/src/Processing%20Application/media/main.png?raw=true)
 
 How it works:
+
 ![Alt app](https://github.com/peterjose/WeCare-iBoard/blob/main/src/Processing%20Application/media/text-to-iboard.gif)
 
 ### TODO:
