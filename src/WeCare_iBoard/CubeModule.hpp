@@ -71,7 +71,9 @@ typedef struct cube
     ActuatorMode_t actuatorMode;
 
     // Led light colour on the cube
-    int ledState;
+    uint32_t ledColor;   // Format is 0x00RRGGBB
+    // Led ledBrightness
+    int ledBrightness;
 } CubeModule_t;
 
 // Function prototypes
