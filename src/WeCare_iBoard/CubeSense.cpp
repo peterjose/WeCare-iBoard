@@ -9,6 +9,10 @@
  * 
  */
 
+// comment the following line to disable the Debug printing over the UART
+#define DEBUG_ENABLE
+#include "DebugPrint.hpp"
+
 #include "CubeModule.hpp"
 #include "arduino.h"
 
@@ -18,6 +22,7 @@ void InitialiseSensorModule(CubeModule_t interactiveBoard[], int pixelCount)
     {
         pinMode(interactiveBoard[i].sensorPin, INPUT);
     }
+    DBG_PRINT_LN(F("InitialiseSensorModule >> Sensor Intialised"));
 }
 
 /**
@@ -33,6 +38,15 @@ void UpdateSensorStatus(CubeModule_t interactiveBoard[], int pixelCount)
     {
         // read the sensor and assign the state to the active or inactive
         state = (digitalRead(interactiveBoard[i].sensorPin) == SENSOR_TRIGGERED) ? SENSOR_ACTIVE : SENSOR_INACTIVE;
+        #ifdef DEBUG_ENABLE
+        if(interactiveBoard[i].sensorStatus != state)
+        {
+            DBG_PRINT(F("UpdateSensorStatus >> Sensor state : "));
+            DBG_PRINT(state);
+            DBG_PRINT(F(", sensorStateUpdateFlag : "));
+            DBG_PRINT_LN(interactiveBoard[i].sensorStateUpdateFlag);
+        }
+        #endif /* DEBUG_ENABLE */
         // set the state update flag
         interactiveBoard[i].sensorStateUpdateFlag = (interactiveBoard[i].sensorStatus != state) ? SENSOR_VALUE_UPDATED : SENSOR_VALUE_NOT_UPDATED;
         // update the sensor state
