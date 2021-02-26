@@ -61,6 +61,11 @@ void LED_updateTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
         {
             LED_pixels.fill(LED_pixels.Color(0, 0, 255, 255),PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
         }
+        else
+        {
+            LED_pixels.fill(LED_pixels.Color(0, 0, 0, 255),PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
+        }
+        
     }
     LED_pixels.show(); // Send the updated pixel colors to the hardware.
 }
