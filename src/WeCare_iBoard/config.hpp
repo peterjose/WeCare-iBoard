@@ -18,5 +18,9 @@
 
 #define BAUDRATE_NETWORK_SERIAL     9600
 
+#define LED_MIN_BRIGHTNESS          0
+#define LED_MAX_BRIGHTNESS          255
+
+#define ACTUATOR_MAX_CHANGE         180
 
 #endif /* _CONFIG_H_ */
