@@ -111,7 +111,8 @@ void ParseMessage(CubeModule_t interactiveBoard[], int pixelCount,uint8_t msgPay
             {
                 interactiveBoard[i].actuatorMode = DEAD_LOW_MODE;
             }
-            else
+            else if(interactiveBoard[i].actuatorMode != RAMP_MODE_UP && 
+                interactiveBoard[i].actuatorMode != RAMP_MODE_DOWN)
             {
                 interactiveBoard[i].actuatorMode = RAMP_MODE_UP;
             }            
