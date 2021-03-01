@@ -15,7 +15,7 @@
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
 #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
-#endif /* __AVR__ */
+#endif                 /* __AVR__ */
 
 // comment the following line to disable the Debug printing over the UART
 #define DEBUG_ENABLE
@@ -27,8 +27,8 @@
 #include "LedControl.hpp"
 
 // Number of LED pixels
-#define DEFAULT_PIXEL_COUNT             16
-#define PIXELS_PER_BLOCK                2
+#define DEFAULT_PIXEL_COUNT 16
+#define PIXELS_PER_BLOCK 2
 
 // When setting up the NeoPixel library, we tell it how many pixels,
 // and which pin to use to send signals. Note that for older NeoPixel
@@ -36,20 +36,9 @@
 // strandtest example for more information on possible values.
 Adafruit_NeoPixel LED_pixels(DEFAULT_PIXEL_COUNT, LED_SINGLE_WIRE_PIN, NEO_GRB + NEO_KHZ800);
 
+#ifdef ALGORITHM_1
 /**
- * @brief 
- * 
- * @param pixelCount 
- */
-void LED_Intialise(int pixelCount)
-{
-    LED_pixels.updateLength(pixelCount*PIXELS_PER_BLOCK);
-    LED_pixels.begin();
-    LED_pixels.clear();
-}
-
-/**
- * @brief 
+ * @brief Algorithm 1
  * 
  * @param interactiveBoard 
  * @param pixelCount 
@@ -59,19 +48,19 @@ void LED_updateTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
     for (int i = 0; i < pixelCount; i++)
     {
         int brightness = map(interactiveBoard[i].currentAngle, interactiveBoard[i].actuatorLowSetting, interactiveBoard[i].actuatorHighSetting,
-                            LED_MIN_BRIGHTNESS , LED_MAX_BRIGHTNESS);
+                             LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS);
         // (((interactiveBoard[i].actuatorLowSetting - interactiveBoard[i].currentAngle) * LED_MAX_BRIGHTNESS)
-        //                     / ACTUATOR_MAX_CHANGE);  
+        //                     / ACTUATOR_MAX_CHANGE);
         // TEMPORARY logic for testing
-        // if reed switch sensor is active then apply this 
-        if(interactiveBoard[i].sensorStatus == SENSOR_ACTIVE)
+        // if reed switch sensor is active then apply this
+        if (interactiveBoard[i].sensorStatus == SENSOR_ACTIVE)
         {
-            LED_pixels.fill(LED_pixels.Color(0, 255 , 0 , 255),PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
+            LED_pixels.fill(LED_pixels.Color(0, 255, 0, 255), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
         }
         // if actuation is intended then apply this.
-        else if(interactiveBoard[i].actuationActivated == true)
+        else if (interactiveBoard[i].actuationActivated == true)
         {
-            LED_pixels.fill(LED_pixels.Color(0, 0, brightness , 255),PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
+            LED_pixels.fill(LED_pixels.Color(0, 0, brightness, 255), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
             DBG_PRINT(F("LED_updateTaskRunner >> brightness "));
             DBG_PRINT(interactiveBoard[i].actuatorLowSetting);
             DBG_PRINT(" ");
@@ -81,11 +70,65 @@ void LED_updateTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
         }
         else
         {
-            LED_pixels.fill(LED_pixels.Color(0, 0, 0, 255),PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
+            LED_pixels.fill(LED_pixels.Color(0, 0, 0, 255), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
         }
-        
     }
     LED_pixels.show(); // Send the updated pixel colors to the hardware.
 }
+
+#elif defined (ALGORITHM_2)
+/**
+ * @brief Algorithm 2
+ * 
+ * @param interactiveBoard 
+ * @param pixelCount 
+ */
+void LED_updateTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
+{
+    for (int i = 0; i < pixelCount; i++)
+    {
+        int brightness = map(interactiveBoard[i].currentAngle, interactiveBoard[i].actuatorLowSetting, interactiveBoard[i].actuatorHighSetting,
+                             LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS);
+        // (((interactiveBoard[i].actuatorLowSetting - interactiveBoard[i].currentAngle) * LED_MAX_BRIGHTNESS)
+        //                     / ACTUATOR_MAX_CHANGE);
+        // TEMPORARY logic for testing
+        // if reed switch sensor is active then apply this
+        if (interactiveBoard[i].sensorStatus == SENSOR_ACTIVE)
+        {
+            LED_pixels.fill(LED_pixels.Color(0, 255, 0, 255), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
+        }
+        // if actuation is intended then apply this.
+        else if (interactiveBoard[i].actuationActivated == true)
+        {
+            LED_pixels.fill(LED_pixels.Color(0, 0, brightness, 255), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
+            DBG_PRINT(F("LED_updateTaskRunner >> brightness "));
+            DBG_PRINT(interactiveBoard[i].actuatorLowSetting);
+            DBG_PRINT(" ");
+            DBG_PRINT(interactiveBoard[i].currentAngle);
+            DBG_PRINT(" ");
+            DBG_PRINT_LN(brightness);
+        }
+        else
+        {
+            LED_pixels.fill(LED_pixels.Color(0, 0, 0, 255), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
+        }
+    }
+    LED_pixels.show(); // Send the updated pixel colors to the hardware.
+}
+
+#endif /* ALGORITHM_1 */
+
+/**
+ * @brief 
+ * 
+ * @param pixelCount 
+ */
+void LED_Intialise(int pixelCount)
+{
+    LED_pixels.updateLength(pixelCount * PIXELS_PER_BLOCK);
+    LED_pixels.begin();
+    LED_pixels.clear();
+}
+
 
 /* EOF */
