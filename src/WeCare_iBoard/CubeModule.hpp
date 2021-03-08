@@ -11,7 +11,13 @@
 #ifndef CUBE_MODULE_H_
 #define CUBE_MODULE_H_
 
-#include <Servo.h>
+#include "config.hpp"
+
+#ifdef NORMAL_SERVO
+    #include <Servo.h>
+#else
+    #include <Adafruit_TiCoServo.h>
+#endif /* NORMAL_SERVO */
 
 /**
  * @brief 
@@ -24,7 +30,9 @@ typedef enum
     RAMP_MODE_DOWN,
     DEAD_LOW_MODE,
     ACTIVE_HIGH_MODE,
+    IMMEDIATE_ACTIVE,
     NO_UPDATE_MODE,
+    SENSOR_ACTIVE_MODE,
     DEACTIVE_MODE,
 } ActuatorMode_t;
 
@@ -56,7 +64,11 @@ typedef struct cube
     bool sensorStateUpdateFlag;
 
     // actuator corresponding to that cube
+#ifdef NORMAL_SERVO
     Servo actuator;
+#else
+    Adafruit_TiCoServo actuator;
+#endif /* NORMAL_SERVO */
     // Actuator calibration low state angle info
     int actuatorLowSetting;
     // Actuator calibration high state angle info
