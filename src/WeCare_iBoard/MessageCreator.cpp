@@ -106,16 +106,25 @@ void ParseMessage(CubeModule_t interactiveBoard[], int pixelCount,uint8_t msgPay
             DBG_PRINT(F("Actuator at pxl "));
             DBG_PRINT(i);
             DBG_PRINT(F(" is "));
-            DBG_PRINT_LN((bitInfo?F("Active "):F("Inactive")));
-            if(interactiveBoard[i].actuationActivated == false)
+            DBG_PRINT((bitInfo?F("Active "):F("Inactive ")));
+            if(interactiveBoard[i].actuatorMode == DEACTIVE_MODE)
+            {
+                // DO NOTHING
+                DBG_PRINT_LN(F("deactive mode"));
+            }
+            else if(interactiveBoard[i].actuationActivated == false)
             {
                 interactiveBoard[i].actuatorMode = DEAD_LOW_MODE;
+                DBG_PRINT_LN(F("dead low "));
             }
             else if(interactiveBoard[i].actuatorMode != RAMP_MODE_UP && 
                 interactiveBoard[i].actuatorMode != RAMP_MODE_DOWN)
             {
+                DBG_PRINT_LN(F("ramp mode "));
                 interactiveBoard[i].actuatorMode = RAMP_MODE_UP;
-            }            
+                // interactiveBoard[i].actuatorMode = IMMEDIATE_ACTIVE;
+            } 
+             
         }    
     }
 }
