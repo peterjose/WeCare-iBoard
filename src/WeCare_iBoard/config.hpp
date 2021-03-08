@@ -12,8 +12,10 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-// #define ALGORITHM_1
+#define ALGORITHM_1
 #define ALGORITHM_2
+
+#define NORMAL_SERVO
 
 // SERIAL COMMUNICATION
 #define RX_BUFFER_SIZE              255
@@ -26,6 +28,9 @@
 #define LED_MAX_BRIGHTNESS          255
 
 // Actuator 
-#define ACTUATOR_MAX_CHANGE         180
+#define ACTUATOR_MAX_CHANGE         125
+
+#define MIN_POSITION_DEFAULT        125
+#define MAX_POSITION_DEFAULT        0
 
 #endif /* _CONFIG_H_ */
