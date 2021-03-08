@@ -22,9 +22,9 @@
  */
 void InitialiseCubeModule(CubeModule_t interactiveBoard[], int pixelCount)
 {
-    InitialiseSensorModule(interactiveBoard, pixelCount);
-    LED_Intialise(pixelCount);
-    InitialiseActuatorModule(interactiveBoard, pixelCount);
+   InitialiseSensorModule(interactiveBoard, pixelCount);
+   LED_Intialise(pixelCount);
+   InitialiseActuatorModule(interactiveBoard, pixelCount);
 }
 
 /**
@@ -35,9 +35,9 @@ void InitialiseCubeModule(CubeModule_t interactiveBoard[], int pixelCount)
  */
 void CubeTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
 {
-    UpdateSensorStatus(interactiveBoard, pixelCount);
-    LED_updateTaskRunner(interactiveBoard, pixelCount);
-    ActuatorTaskRunner(interactiveBoard, pixelCount);
+   UpdateSensorStatus(interactiveBoard, pixelCount);
+   LED_updateTaskRunner(interactiveBoard, pixelCount);
+   ActuatorTaskRunner(interactiveBoard, pixelCount);
 }
 
 /* EOF */
