@@ -19,8 +19,8 @@
 typedef enum
 {
     IPC_PACKET_TIMEOUT_TIMER         = 0,
-    DUMMY_TIMER                         ,
-    DUMMY_TIMER1                        ,
+    PERIODIC_TIMER                      ,
+    PERIODIC_TIMER1                     ,
     /* ADD new timers Here */
     MAX_SOFT_TIMER_COUNT                , // TOTAL number of timers available
     // Dont add any timers after MAX_SOFT_TIMER_COUNT
