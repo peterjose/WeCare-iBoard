@@ -118,11 +118,12 @@ void ParseMessage(CubeModule_t interactiveBoard[], int pixelCount,uint8_t msgPay
                 DBG_PRINT_LN(F("dead low "));
             }
             else if(interactiveBoard[i].actuatorMode != RAMP_MODE_UP && 
-                interactiveBoard[i].actuatorMode != RAMP_MODE_DOWN)
+                interactiveBoard[i].actuatorMode != RAMP_MODE_DOWN &&
+                interactiveBoard[i].actuatorMode != ACTIVE_HIGH_MODE && 
+                interactiveBoard[i].actuatorMode != ACTIVE_HIGH_STANDBY_MODE)
             {
                 DBG_PRINT_LN(F("ramp mode "));
                 interactiveBoard[i].actuatorMode = RAMP_MODE_UP;
-                // interactiveBoard[i].actuatorMode = IMMEDIATE_ACTIVE;
             } 
              
         }    

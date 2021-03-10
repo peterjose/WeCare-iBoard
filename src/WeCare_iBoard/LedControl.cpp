@@ -100,7 +100,7 @@ void LED_updateTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
         // if actuation is intended then apply this.
         else if (interactiveBoard[i].actuationActivated == true)
         {
-            LED_pixels.fill(LED_pixels.Color(0, 0, brightness, 255), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
+            LED_pixels.fill(LED_pixels.Color(brightness , 0, 0, 255), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
             DBG_PRINT(F("LED_updateTaskRunner >> brightness "));
             DBG_PRINT(interactiveBoard[i].actuatorLowSetting);
             DBG_PRINT(" ");
@@ -110,7 +110,7 @@ void LED_updateTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
         }
         else
         {
-            LED_pixels.fill(LED_pixels.Color(0, 0, 0, 255), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
+            LED_pixels.fill(LED_pixels.Color(5, 5, 5, 0), PIXELS_PER_BLOCK * i, PIXELS_PER_BLOCK);
         }
     }
     LED_pixels.show(); // Send the updated pixel colors to the hardware.
