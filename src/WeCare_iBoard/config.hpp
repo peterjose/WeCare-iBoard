@@ -12,7 +12,7 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-#define ALGORITHM_1
+// #define ALGORITHM_1
 #define ALGORITHM_2
 
 #define NORMAL_SERVO
