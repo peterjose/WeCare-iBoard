@@ -117,6 +117,59 @@ void LED_updateTaskRunner(CubeModule_t interactiveBoard[], int pixelCount)
 }
 
 #endif /* ALGORITHM_1 */
+/**
+ * @brief 
+ * 
+ * @param pixelCount 
+ */
+static void defaultBrightness(int pixelCount)
+{
+    LED_pixels.fill(LED_pixels.Color(130, 130, 130, 255), 0, pixelCount * PIXELS_PER_BLOCK);
+}
+
+/**
+ * @brief 
+ * 
+ * @param pixelCount 
+ */
+static void printWelcomNote(int pixelCount)
+{
+    defaultBrightness(pixelCount);
+    // print H
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 0,  PIXELS_PER_BLOCK);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 3 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK * 2);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 7 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK * 6);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 15 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK);
+    LED_pixels.show();
+    delay(1000);
+    // print U
+    LED_pixels.clear();
+    defaultBrightness(pixelCount);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 0,  PIXELS_PER_BLOCK*5);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 7 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK * 2);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 11 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK * 2);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 15 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK);
+    LED_pixels.show();
+    delay(1000);
+    // Print G
+    LED_pixels.clear();
+    defaultBrightness(pixelCount);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 0,  PIXELS_PER_BLOCK * 5);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 6 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK * 3);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 12 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK * 5);
+    LED_pixels.show();
+    delay(1000);
+    // print O
+    LED_pixels.clear();
+    defaultBrightness(pixelCount);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 0,  PIXELS_PER_BLOCK*5);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 7 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK * 2);
+    LED_pixels.fill(LED_pixels.Color(255, 0, 0, 255), 11 * PIXELS_PER_BLOCK,  PIXELS_PER_BLOCK * 5);
+    LED_pixels.show();
+    delay(1000);
+    LED_pixels.clear();
+
+}
 
 /**
  * @brief 
@@ -128,7 +181,7 @@ void LED_Intialise(int pixelCount)
     LED_pixels.updateLength(pixelCount * PIXELS_PER_BLOCK);
     LED_pixels.begin();
     LED_pixels.clear();
-    
+    printWelcomNote(pixelCount);
 }
 
 
