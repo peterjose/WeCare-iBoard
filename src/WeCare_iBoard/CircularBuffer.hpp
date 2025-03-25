@@ -188,7 +188,7 @@ public:
      */
     int getByteCount(void)
     {
-        return ((this->head >= this->tail) ? (this->head - this->tail) : ((CIRCULAR_BUFFER_MAX_SIZE - this->tail) + this->head + 1));
+        return ((this->head >= this->tail) ? (this->head - this->tail) : ((CIRCULAR_BUFFER_MAX_SIZE - this->tail) + this->head));
     }
 
     /**
